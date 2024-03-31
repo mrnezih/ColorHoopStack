@@ -4,15 +4,15 @@ using UnityEngine;
 
 public class Stand : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
+    public GameObject movementPosition;
+    public GameObject[] sokets;
+    public int theEmptySocket;
+    public List<GameObject> _circles = new();
+    [SerializeField] private GameManager _gameManager;
+
+    public GameObject giveTheTopCircle()
     {
-        
+        return _circles[^1]; // En sonuncu elemaný seçmek için.
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 }
