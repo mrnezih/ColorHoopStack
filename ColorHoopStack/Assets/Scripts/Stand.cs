@@ -5,7 +5,7 @@ using UnityEngine;
 public class Stand : MonoBehaviour
 {
     public GameObject movementPosition;
-    public GameObject[] sokets;
+    public GameObject[] sockets;
     public int theEmptySocket;
     public List<GameObject> _circles = new();
     [SerializeField] private GameManager _gameManager;
