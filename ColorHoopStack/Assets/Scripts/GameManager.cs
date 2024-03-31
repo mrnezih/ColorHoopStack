@@ -22,12 +22,22 @@ public class GameManager : MonoBehaviour
                     if(selectedObject!=null && selectedStand!=hit.collider.gameObject)
                     {//Bir çember gönderme iþlemi.
 
+                        Stand _stand=hit.collider.GetComponent<Stand>();
+                        selectedStand.GetComponent<Stand>().SocketReplacementOperations(selectedObject);
+
+                        _circle.Move("change_pose",hit.collider.gameObject,_stand.GiveAvailableSocket(),_stand.movementPosition);
+
+                        _stand.theEmptySocket++;
+                        _stand._circles.Add(selectedObject);
+
+                        selectedObject = null;
+                        selectedStand = null;
 
                     }
                     else
                     {
                         Stand _stand = hit.collider.GetComponent<Stand>();
-                        selectedObject = _stand.giveTheTopCircle();
+                        selectedObject = _stand.GiveTheTopCircle();
                         _circle=selectedObject.GetComponent<Circle>();
                         thereIsMovement = true;
 

@@ -12,7 +12,7 @@ public class Circle : MonoBehaviour
 
 
     GameObject movementPosition;
-    GameObject standBelongs;
+    GameObject standWillGo;
 
     bool chosen, changePose, socketSit, backToSocket;
 
@@ -26,7 +26,10 @@ public class Circle : MonoBehaviour
                 break;
             
             case "change_pose":
-
+                standWillGo = stand;
+                _belongsCircleSocket = socket;
+                movementPosition = destinationObject;
+                changePose = true;
                 break;
 
             case "socket_sit":
@@ -47,6 +50,34 @@ public class Circle : MonoBehaviour
             if(Vector3.Distance(transform.position, movementPosition.transform.position)<.10)
             {
                 chosen = false;
+            }
+        }
+
+        if (changePose)
+        {
+            transform.position = Vector3.Lerp(transform.position, movementPosition.transform.position, .2f);
+            if (Vector3.Distance(transform.position, movementPosition.transform.position) < .10)
+            {
+                changePose = false;
+                socketSit = true;
+            }
+        }
+
+        if (socketSit)
+        {
+            transform.position = Vector3.Lerp(transform.position, _belongsCircleSocket.transform.position, .2f);
+            if (Vector3.Distance(transform.position, _belongsCircleSocket.transform.position) < .10)
+            {
+                transform.position = _belongsCircleSocket.transform.position;
+                socketSit = false;
+
+                _standBelongs = standWillGo;
+
+                if(_standBelongs.GetComponent<Stand>()._circles.Count>1)
+                {
+                    _standBelongs.GetComponent<Stand>()._circles[^2].GetComponent<Circle>().canItMove = false;
+                }
+                _gameManager.thereIsMovement = false;
             }
         }
     }
