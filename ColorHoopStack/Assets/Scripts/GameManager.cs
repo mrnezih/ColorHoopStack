@@ -5,7 +5,7 @@ using UnityEngine;
 public class GameManager : MonoBehaviour
 {
     GameObject selectedObject;
-    GameObject selectedPlatform;
+    GameObject selectedStand;
     Circle _circle;
     public bool thereIsMovement;
     public int targetStandNumber;
@@ -19,7 +19,7 @@ public class GameManager : MonoBehaviour
             {
                 if (hit.collider!=null && hit.collider.CompareTag("Stand"))
                 {
-                    if(selectedObject!=null && selectedPlatform!=hit.collider.gameObject)
+                    if(selectedObject!=null && selectedStand!=hit.collider.gameObject)
                     {//Bir çember gönderme iþlemi.
 
 
@@ -31,6 +31,12 @@ public class GameManager : MonoBehaviour
                         _circle=selectedObject.GetComponent<Circle>();
                         thereIsMovement = true;
 
+                        if(_circle.canItMove)
+                        {
+                            _circle.Move("chose", null, null,_circle._standBelongs.GetComponent<Stand>().movementPosition);
+
+                            selectedStand = _circle._standBelongs;
+                        }
 
                     }
                 }
