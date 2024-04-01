@@ -23,17 +23,57 @@ public class GameManager : MonoBehaviour
                     {//Bir çember gönderme iþlemi.
 
                         Stand _stand=hit.collider.GetComponent<Stand>();
-                        selectedStand.GetComponent<Stand>().SocketReplacementOperations(selectedObject);
 
-                        _circle.Move("change_pose",hit.collider.gameObject,_stand.GiveAvailableSocket(),_stand.movementPosition);
+                        if(_stand._circles.Count !=4 && _stand._circles.Count!=0) // standýn max ve min deðeri
+                        {
+                            if (_circle.color == _stand._circles[^1].GetComponent<Circle>().color) //Renk kontrol
+                            {
+                                //Çember gönderilerme
+                                selectedStand.GetComponent<Stand>().SocketReplacementOperations(selectedObject);
+                                _circle.Move("change_pose", hit.collider.gameObject, _stand.GiveAvailableSocket(), _stand.movementPosition);
+                                _stand.theEmptySocket++;
+                                _stand._circles.Add(selectedObject);
+                                selectedObject = null;
+                                selectedStand = null;
+                            }
+                            else
+                            {
+                                //geri oturma
+                                _circle.Move("back_to_socket");
+                                selectedObject = null;
+                                selectedStand = null;
+                            }
+                            
+                        }
+                        else if(_stand._circles.Count == 0)
+                        {
+                            selectedStand.GetComponent<Stand>().SocketReplacementOperations(selectedObject);
+                            _circle.Move("change_pose", hit.collider.gameObject, _stand.GiveAvailableSocket(), _stand.movementPosition);
+                            _stand.theEmptySocket++;
+                            _stand._circles.Add(selectedObject);
+                            selectedObject = null;
+                            selectedStand = null;
+                        }
+                        else //dolu olunca göndermeme
+                        {
+                            //geri oturma
+                            _circle.Move("back_to_socket");
+                            selectedObject = null;
+                            selectedStand = null;
+                        }
 
-                        _stand.theEmptySocket++;
-                        _stand._circles.Add(selectedObject);
 
-                        selectedObject = null;
-                        selectedStand = null;
+
 
                     }
+                    else if(selectedStand ==hit.collider.gameObject)
+                    {
+                        _circle.Move("back_to_socket");
+                        selectedObject = null;
+                        selectedStand = null;
+                    }
+
+
                     else
                     {
                         Stand _stand = hit.collider.GetComponent<Stand>();
