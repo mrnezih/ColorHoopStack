@@ -32,12 +32,8 @@ public class Circle : MonoBehaviour
                 changePose = true;
                 break;
 
-            case "socket_sit":
-
-                break;
-
             case "back_to_socket":
-
+                backToSocket = true;
                 break;
         }
     }
@@ -77,6 +73,18 @@ public class Circle : MonoBehaviour
                 {
                     _standBelongs.GetComponent<Stand>()._circles[^2].GetComponent<Circle>().canItMove = false;
                 }
+                _gameManager.thereIsMovement = false;
+            }
+        }
+
+
+        if (backToSocket)
+        {
+            transform.position = Vector3.Lerp(transform.position, _belongsCircleSocket.transform.position, .2f);
+            if (Vector3.Distance(transform.position, _belongsCircleSocket.transform.position) < .10)
+            {
+                transform.position = _belongsCircleSocket.transform.position;
+                backToSocket = false;
                 _gameManager.thereIsMovement = false;
             }
         }
