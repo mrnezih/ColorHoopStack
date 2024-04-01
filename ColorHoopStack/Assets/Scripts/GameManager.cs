@@ -8,7 +8,7 @@ public class GameManager : MonoBehaviour
     GameObject selectedStand;
     Circle _circle;
     public bool thereIsMovement;
-    public int targetStandNumber;
+    public int destinationStandNumber;
     int completedStandNumber;
 
     void Update()
@@ -33,6 +33,7 @@ public class GameManager : MonoBehaviour
                                 _circle.Move("change_pose", hit.collider.gameObject, _stand.GiveAvailableSocket(), _stand.movementPosition);
                                 _stand.theEmptySocket++;
                                 _stand._circles.Add(selectedObject);
+                                _stand.CheckTheCircles();
                                 selectedObject = null;
                                 selectedStand = null;
                             }
@@ -51,6 +52,7 @@ public class GameManager : MonoBehaviour
                             _circle.Move("change_pose", hit.collider.gameObject, _stand.GiveAvailableSocket(), _stand.movementPosition);
                             _stand.theEmptySocket++;
                             _stand._circles.Add(selectedObject);
+                            _stand.CheckTheCircles();
                             selectedObject = null;
                             selectedStand = null;
                         }
@@ -95,5 +97,14 @@ public class GameManager : MonoBehaviour
 
 
 
+    }
+
+    public void StandCompleted()
+    {
+        completedStandNumber++;
+        if (completedStandNumber== destinationStandNumber)
+        {
+            Debug.Log("Kazandýn"); // Kazandýn panelini çýakracaðým müzik falan.
+        }
     }
 }
