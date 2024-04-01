@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour
 {
@@ -10,6 +11,8 @@ public class GameManager : MonoBehaviour
     public bool thereIsMovement;
     public int destinationStandNumber;
     int completedStandNumber;
+
+ 
 
     void Update()
     {
@@ -101,10 +104,19 @@ public class GameManager : MonoBehaviour
 
     public void StandCompleted()
     {
+        int nextLevel = SceneManager.GetActiveScene().buildIndex;
         completedStandNumber++;
         if (completedStandNumber== destinationStandNumber)
         {
-            Debug.Log("Kazandýn"); // Kazandýn panelini çýakracaðým müzik falan.
+            Debug.Log("Kazandýn"); // Kazandýn paneli.
+
+            nextLevel++;
+            SceneManager.LoadScene(nextLevel);
         }
-    }
+     }
+
+  
+
+    
+
 }
