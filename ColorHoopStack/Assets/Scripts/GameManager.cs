@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,13 +13,33 @@ public class GameManager : MonoBehaviour
     public int destinationStandNumber;
     int completedStandNumber;
 
- 
+    public Text tapToStartText;
+    public GameObject winPanel;
+
+
+    private void Start()
+    {
+        Time.timeScale = 0;
+        tapToStartText.enabled = true;
+        winPanel.SetActive(false);
+        
+    }
+
 
     void Update()
     {
+        //if (Input.touchCount >0)
+        //{
+        //    Time.timeScale = 1;
+        //    tapToStartText.enabled = false;
+        //}
+
         if(Input.GetMouseButtonDown(0))
         {
-            if(Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out RaycastHit hit,100))
+            Time.timeScale = 1;
+            tapToStartText.enabled = false;
+
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out RaycastHit hit,100))
             {
                 if (hit.collider!=null && hit.collider.CompareTag("Stand"))
                 {
@@ -104,19 +125,37 @@ public class GameManager : MonoBehaviour
 
     public void StandCompleted()
     {
-        int nextLevel = SceneManager.GetActiveScene().buildIndex;
+        //int nextLevel = SceneManager.GetActiveScene().buildIndex;
         completedStandNumber++;
         if (completedStandNumber== destinationStandNumber)
         {
             Debug.Log("Kazandýn"); // Kazandýn paneli.
 
-            nextLevel++;
-            SceneManager.LoadScene(nextLevel);
+            Time.timeScale = 0;
+
+            //nextLevel++;
+            //SceneManager.LoadScene(nextLevel);
+
+            winPanel.SetActive(true);
         }
      }
 
-  
+    public void LoadNextLevel()
+    {
+        Debug.Log("Next level loading...");
+        //int nextLevel = SceneManager.GetActiveScene().buildIndex;
+        //nextLevel++;
+        //SceneManager.LoadScene(nextLevel);
+    }
 
-    
+    public void ButonTiklandi()
+    {
+            Debug.Log("Butona týklandý!");
+        // Butonun çalýþacaðý diðer kodlar buraya gelecek
+    }
+
+
+
+
 
 }
