@@ -20,14 +20,7 @@ public class MainMenu : MonoBehaviour
 
     public void Resume()
     {
-       
-       
-       
         SceneManager.LoadScene("Level1");
-
-
-
-
     }
 
 }
