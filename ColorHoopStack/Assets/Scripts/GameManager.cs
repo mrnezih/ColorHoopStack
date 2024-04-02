@@ -20,7 +20,7 @@ public class GameManager : MonoBehaviour
     private void Start()
     {
         Time.timeScale = 0;
-        tapToStartText.enabled = true;
+        
         winPanel.SetActive(false);
         
     }
@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviour
             Time.timeScale = 1;
             tapToStartText.enabled = false;
 
-            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition),out RaycastHit hit,100))
+            
+            if (Physics.Raycast(Camera.main.ScreenPointToRay(Input.mousePosition), out RaycastHit hit, 100))
             {
                 if (hit.collider!=null && hit.collider.CompareTag("Stand"))
                 {
@@ -116,7 +117,7 @@ public class GameManager : MonoBehaviour
 
                     }
                 }
-            }
+            }   
         }
 
 
@@ -143,15 +144,17 @@ public class GameManager : MonoBehaviour
     public void LoadNextLevel()
     {
         Debug.Log("Next level loading...");
-        //int nextLevel = SceneManager.GetActiveScene().buildIndex;
-        //nextLevel++;
-        //SceneManager.LoadScene(nextLevel);
+        int nextLevel = SceneManager.GetActiveScene().buildIndex;
+        nextLevel++;
+        SceneManager.LoadScene(nextLevel);
     }
+
+
 
     public void ButonTiklandi()
     {
             Debug.Log("Butona týklandý!");
-        // Butonun çalýþacaðý diðer kodlar buraya gelecek
+        
     }
 
 
